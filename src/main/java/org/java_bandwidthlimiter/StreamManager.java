@@ -147,6 +147,14 @@ public class StreamManager implements BandwidthLimiter, IStreamManager {
         this.latency = latency;
     }
 
+    /**
+    * To take into account overhead due to underlying protocols (e.g. TCP/IP)
+    * @param payloadPercentage a  ] 0 , 100] value. where 100 means that the required
+    *                          downstream/upstream bandwidth will be full used for
+    *                          sending payload.
+    *                          Default value is 95%.
+    *                          The default value is applied if an out of boundaries value is passed in.
+    */
     public void setPayloadPercentage(int payloadPercentage) {
         if( !(payloadPercentage > 0 && payloadPercentage <= 100) ) {
             //if an invalid percentage is given
@@ -180,6 +188,12 @@ public class StreamManager implements BandwidthLimiter, IStreamManager {
         return new ManagedOutputStream(out, this);
     }
 
+    /**
+    * This function sets the max bits per second threshold
+    * {@link #setDownstreamKbps} and {@link #setDownstreamKbps(long)} won't be allowed
+    * to set a bandwidth higher than what specified here.
+    * @param maxBitsPerSecond The max bits per seconds you want this instance of StreamManager to respect.
+    */
     public void setMaxBitsPerSecondThreshold(long maxBitsPerSecond) {
         //setting the maximimum threshold of bits per second that
         //we can send EVER in upstream/downstream
