@@ -38,6 +38,7 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
     private ObjectMapper mapper = new ObjectMapper();
 
     private String host;
+    private int tempPort;
     private int port;
     private boolean captureHeaders = false;
     private boolean captureContent = true;
@@ -50,20 +51,20 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
     public static final int PORT_ENDINDEX = 12;
 
     public ProxyRemoteClient(String host, int port) {
+        this.host = host;
+        this.tempPort = port;
+    }
+
+    public void start() throws Exception {
         ClientConfig config = new DefaultClientConfig();
         Client client = Client.create(config);
-        service = client.resource(host + ":" + port + "/proxy");
-
+        service = client.resource(host + ":" + tempPort
+            + "/proxy");
         ClientResponse response = service.post(ClientResponse.class);
         String responseBody = response.getEntity(String.class);
         int actPort = Integer.parseInt(responseBody.substring(PORT_BEGININDEX,
                 PORT_ENDINDEX));
-        this.host = host;
         this.port = actPort;
-    }
-
-    public void start() throws Exception {
-        log.fatal("Everything is handled in the constructor.");
     }
 
     public Proxy seleniumProxy() throws UnknownHostException {
@@ -76,7 +77,7 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
     }
 
     public void cleanup() {
-        log.fatal("No need to implement this method");
+        log.warn("No need to implement this method");
     }
 
     public void stop() throws Exception {
@@ -93,7 +94,7 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
     }
 
     public void setPort(int port) {
-        log.fatal("No need to implement this method");
+        log.warn("No need to implement this method");
     }
 
     public Har getHar() {
@@ -150,7 +151,7 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
     }
 
     public void endPage() {
-        log.fatal("No need to implement this method");
+        log.warn("No need to implement this method");
     }
 
     public void setRetryCount(int count) {
@@ -168,11 +169,11 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
     }
 
     public void addRequestInterceptor(RequestInterceptor interceptor) {
-        log.fatal("Not yet implemented");
+        log.warn("Not yet implemented");
     }
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
-        log.fatal("Not yet implemented");
+        log.warn("Not yet implemented");
     }
 
     public IStreamManager getStreamManager() {
