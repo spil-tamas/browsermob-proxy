@@ -77,7 +77,7 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
     }
 
     public void cleanup() {
-        log.warn("No need to implement this method");
+        log.debug("cleanup: no need to implement this method");
     }
 
     public void stop() throws Exception {
@@ -94,7 +94,7 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
     }
 
     public void setPort(int port) {
-        log.warn("No need to implement this method");
+        log.debug("setPort: no need to implement this method");
     }
 
     public Har getHar() {
@@ -151,7 +151,7 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
     }
 
     public void endPage() {
-        log.warn("No need to implement this method");
+        log.debug("endPage: no need to implement this method");
     }
 
     public void setRetryCount(int count) {
@@ -169,11 +169,11 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
     }
 
     public void addRequestInterceptor(RequestInterceptor interceptor) {
-        log.warn("Not yet implemented");
+        log.debug("addRequestInterceptor: not yet implemented");
     }
 
     public void addResponseInterceptor(ResponseInterceptor interceptor) {
-        log.warn("Not yet implemented");
+        log.debug("addResponseInterceptor: not yet implemented");
     }
 
     public IStreamManager getStreamManager() {
