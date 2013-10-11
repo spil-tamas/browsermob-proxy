@@ -1,5 +1,7 @@
 package net.lightbody.bmp.proxy.remote;
 
+import com.google.common.base.Joiner;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -236,7 +238,7 @@ public class ProxyRemoteClient implements IProxyServer, IStreamManager, Bandwidt
 
     public void whitelistRequests(String[] patterns, int responseCode) {
         MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
-        formData.add("regex", patterns.toString());
+        formData.add("regex", Joiner.on(",").skipNulls().join(patterns));
         formData.add("status", Integer.toString(responseCode));
         service.path(Integer.toString(port))
                 .path("whitelist").put(ClientResponse.class, formData);
