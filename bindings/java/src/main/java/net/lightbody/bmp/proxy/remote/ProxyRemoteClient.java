@@ -28,7 +28,7 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProxyRemoteClient implements IProxyServer, IStreamManager, BandwidthLimiter {
+public class ProxyRemoteClient implements IProxyServer, IStreamManager {
     private Log log = LogFactory.getLog(ProxyRemoteClient.class);
 
     /** The service. */

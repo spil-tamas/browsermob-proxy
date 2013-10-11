@@ -52,7 +52,7 @@ import java.util.Random;
  * and implement fairness there.
  *
  */
-public class StreamManager implements BandwidthLimiter, IStreamManager {
+public class StreamManager implements IStreamManager {
 
     //helper class to parameters for a stream direction (upstream or downstream)
     private class StreamParams {
@@ -67,7 +67,7 @@ public class StreamManager implements BandwidthLimiter, IStreamManager {
         }
         private void reset() {
             remainingBps = adjustedMaxBps / nextResetSubIntervals;
-            nextResetTimestamp = System.currentTimeMillis() + (OneSecond /nextResetSubIntervals);
+            nextResetTimestamp = System.currentTimeMillis() + (BandwidthLimiter.OneSecond /nextResetSubIntervals);
         }
         private void adjustBytes(long bytesNumber) {
             //make sure that this adjustment didn't go over the max allowed
@@ -117,31 +117,19 @@ public class StreamManager implements BandwidthLimiter, IStreamManager {
         this.enabled = false;
     }
 
-    /**
-     * setting the max kilobits per seconds this StreamManager should apply in downstream,
-     * as aggregate bandwidth of all the InputStream registered.
-     * @param downstreamKbps the desired max kilobits per second downstream rate.
-     */
+
     @Override
     public void setDownstreamKbps(long downstreamKbps) {
         long bytesPerSecond = (downstreamKbps * 1000) / 8;
         setMaxBps(this.downStream, bytesPerSecond);
     }
-    /**
-     * setting the max kilobits per seconds this StreamManager should apply in upstream,
-     * as aggregate bandwidth of all the OutputStream registered.
-     * @param upstreamKbps the desired max kilobits per second upstream rate.
-     */
+
     @Override
     public void setUpstreamKbps(long upstreamKbps) {
         long bytesPerSecond = (upstreamKbps * 1000) / 8;
         setMaxBps(this.upStream, bytesPerSecond);
     }
-    /**
-     * setting the additional (simulated) latency that the streams will suffer.
-     * By default the latency applied is equal to zero.
-     * @param latency the desired additional latency in milliseconds
-     */
+
     @Override
     public void setLatency(long latency) {
         this.latency = latency;

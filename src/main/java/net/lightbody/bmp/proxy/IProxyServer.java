@@ -1,5 +1,7 @@
 package net.lightbody.bmp.proxy;
 
+import org.java_bandwidthlimiter.BandwidthLimiter;
+
 import org.java_bandwidthlimiter.IStreamManager;
 
 import net.lightbody.bmp.core.har.Har;

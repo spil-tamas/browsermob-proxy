@@ -32,4 +32,25 @@ public interface IStreamManager {
      */
     public abstract void setMaxBitsPerSecondThreshold(long maxBitsPerSecond);
 
+    /**
+     * setting the max kilobits per seconds this StreamManager should apply in downstream,
+     * as aggregate bandwidth of all the InputStream registered.
+     * @param downstreamKbps the desired max kilobits per second downstream rate.
+     */
+    public abstract void setDownstreamKbps(long downstreamKbps);
+
+    /**
+     * setting the max kilobits per seconds this StreamManager should apply in upstream,
+     * as aggregate bandwidth of all the OutputStream registered.
+     * @param upstreamKbps the desired max kilobits per second upstream rate.
+     */
+    public abstract void setUpstreamKbps(long upstreamKbps);
+
+    /**
+     * setting the additional (simulated) latency that the streams will suffer.
+     * By default the latency applied is equal to zero.
+     * @param latency the desired additional latency in milliseconds
+     */
+    public abstract void setLatency(long latency);
+
 }
