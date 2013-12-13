@@ -71,6 +71,6 @@ public interface IProxyServer {
 
   public abstract void waitForNetworkTrafficToStop(long quietPeriodInMs, long timeoutInMs);
 
-  public abstract void setOptions(Map<String, String> options);
+  public abstract void setOptions(Map<String, String> options) throws Exception;
 
 }
